@@ -1,17 +1,27 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const inter = Inter({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-inter",
+});
+
 const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   variable: "--font-space",
 });
 
+const display = Barlow_Condensed({
+  subsets: ["latin", "latin-ext"],
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
+});
+
 export const metadata: Metadata = {
-  title: "OFF HOUR | Custom Frosted Watch Atelier",
+  title: "OFF HOUR | Custom Frosted G-Shock",
   description:
-    "Ceasuri Casio GA-2100 modificate manual în carcase din oțel inoxidabil 316L cu finisaj frosted. Asamblate și calibrate individual.",
+    "Casio G-Shock GA-2100 originale, montate manual în carcase și brățări din oțel inoxidabil cu finisaj frosted.",
 };
 
 export default function RootLayout({
@@ -22,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="ro" className="dark scroll-smooth">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} font-sans bg-zinc-950 text-zinc-100 antialiased selection:bg-white selection:text-black`}
+        className={`${inter.variable} ${spaceGrotesk.variable} ${display.variable} font-sans bg-zinc-950 text-zinc-100 antialiased selection:bg-white selection:text-black`}
       >
         {children}
       </body>

@@ -1,34 +1,37 @@
 "use client";
 
 /**
- * SETUP (o singura data):
- * 1. In app/layout.tsx incarci fontul si il expui ca variabila:
+ * SETUP (ca inainte):
+ * 1. app/layout.tsx:
  *      import { Barlow_Condensed } from "next/font/google";
- *      const display = Barlow_Condensed({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-display" });
+ *      const display = Barlow_Condensed({ subsets: ["latin", "latin-ext"], weight: ["500", "600", "700"], variable: "--font-display" });
  *      ... <body className={display.variable}> ...
- * 2. Pui poza in public/hero-watch.jpg (vezi nota de la sfarsit despre poza).
- * 3. Textele de mai jos sunt placeholder. Fiecare afirmatie trebuie sa fie adevarata
- *    pentru ceasul tau real (material, modul, garantie).
+ *    ("latin-ext" e necesar pentru ă, ț, ș)
+ * 2. public/hero-watch.jpg = ceas-prezentare-v4.jpg
+ * 3. Pune numarul tau in WHATSAPP (format international, fara + si spatii).
  */
 
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
+const WHATSAPP = "407XXXXXXXX"; // TODO
+const WHATSAPP_HREF = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(
+  "Salut! Vreau ceasul Off Hour All Black Frosted."
+)}`;
+
 const COPY = {
-  eyebrow: "Custom G-Shock · Serie numerotată",
-  line1: "Nu l-ai",
-  line2: "văzut deja.",
-  sub: "Fiecare ceas e asamblat manual, o bucată pe rând.",
-  cta: "Vezi ceasurile",
-  ctaHref: "#colectie",
+  eyebrow: "Custom G-Shock · Asamblat manual",
+  line1: "Ceasul pe care",
+  line2: "îl observă toți",
+  sub: "Un G-Shock original, îmbrăcat în carcasă de oțel cu finisaj frosted.",
 };
 
-// Verifica fiecare valoare. Nu scrie "316L" sau "garantie" daca nu poti dovedi / onora.
+// Doar lucruri adevarate si verificabile.
 const SPECS = [
-  { label: "Carcasă", value: "Oțel inoxidabil" },
-  { label: "Modul", value: "Casio original" },
-  { label: "Garanție", value: "12 luni pe manoperă" },
+  { label: "Modul", value: "Casio GA-2100" },
+  { label: "Carcasă", value: "Oțel inoxidabil 316L" },
+  { label: "Finisaj", value: "Frosted" },
 ];
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -43,57 +46,66 @@ export default function Hero() {
   });
 
   return (
-    <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-black">
-      {/* Fundal: poza fullscreen cu zoom lent la intrare */}
+    <section className="relative isolate flex min-h-[calc(100svh-5rem)] items-end overflow-hidden bg-black">
+      {/* Poza: pe desktop impinsa spre dreapta, ca titlul sa nu cada peste cadran */}
       <motion.div
-        className="absolute inset-0 -z-10"
+        className="absolute inset-x-0 top-0 -z-10 h-[64%] lg:inset-y-0 lg:left-[26%] lg:right-[-10%] lg:h-auto"
         initial={{ scale: reduce ? 1 : 1.08 }}
         animate={{ scale: 1 }}
         transition={{ duration: 2.4, ease: EASE }}
       >
         <Image
           src="/hero-watch.jpg"
-          alt="Ceas G-Shock custom pe mână"
+          alt="Ceas Off Hour negru, cu finisaj frosted, ținut pe o mănușă albă"
           fill
           priority
-          sizes="100vw"
-          className="object-cover object-center"
+          sizes="(min-width: 1024px) 84vw, 100vw"
+          className="object-cover object-[50%_36%] lg:object-[50%_42%] lg:[mask-image:linear-gradient(to_right,transparent,black_30%)]"
         />
       </motion.div>
 
-      {/* Intunecare ca textul sa se citeasca peste orice poza */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black via-black/55 to-black/10" />
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.6)_100%)]" />
+      {/* Mobil: intunecare de jos in sus. Desktop: stanga neagra, se deschide spre ceas. */}
+      <div className="absolute inset-x-0 top-0 -z-10 h-[64%] bg-[linear-gradient(to_top,#000_0%,rgba(0,0,0,0.6)_22%,rgba(0,0,0,0)_50%)] lg:hidden" />
+      <div className="absolute inset-0 -z-10 hidden lg:block bg-[linear-gradient(to_right,#000_26%,rgba(0,0,0,0.8)_36%,rgba(0,0,0,0.1)_60%,rgba(0,0,0,0.3)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 -z-10 hidden h-1/3 lg:block bg-gradient-to-t from-black to-transparent" />
 
-      <div className="mx-auto w-full max-w-7xl px-6 pb-12 pt-40 lg:px-8 lg:pb-16">
+      <div className="mx-auto w-full max-w-7xl px-6 pb-8 pt-10 lg:px-8 lg:pb-12 lg:pt-24">
         <motion.p
           {...fade(0.2)}
-          className="mb-5 text-[11px] font-medium uppercase tracking-[0.35em] text-white/70"
+          className="mb-5 hidden text-[11px] font-medium sm:block uppercase tracking-[0.35em] text-white/70"
         >
           {COPY.eyebrow}
         </motion.p>
 
-        <h1 className="font-[family-name:var(--font-display)] text-[clamp(3.5rem,13vw,11rem)] font-bold uppercase leading-[0.88] tracking-tight text-white">
-          <motion.span {...fade(0.35)} className="block">
+        <h1 className="font-[family-name:var(--font-display)] text-[clamp(3.15rem,min(7.2vw,12.5vh),6.75rem)] font-bold uppercase leading-[0.91] tracking-tight text-white">
+          <motion.span {...fade(0.35)} className="block whitespace-nowrap">
             {COPY.line1}
           </motion.span>
-          <motion.span {...fade(0.5)} className="block text-white/40">
+          <motion.span {...fade(0.5)} className="mt-[0.1em] block whitespace-nowrap text-white/40">
             {COPY.line2}
           </motion.span>
         </h1>
 
-        <div className="mt-10 flex flex-col gap-8 border-t border-white/15 pt-8 lg:flex-row lg:items-end lg:justify-between">
-          <motion.div {...fade(0.7)} className="max-w-sm">
+        <div className="mt-8 flex flex-col gap-7 border-t lg:mt-10 border-white/15 pt-8 lg:flex-row lg:items-end lg:justify-between">
+          <motion.div {...fade(0.7)} className="max-w-lg">
             <p className="text-sm leading-relaxed text-white/70">{COPY.sub}</p>
-            <Link
-              href={COPY.ctaHref}
-              className="mt-6 inline-flex border border-white px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-white hover:text-black"
-            >
-              {COPY.cta}
-            </Link>
+            <div className="mt-6 grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
+              <a
+                href="#colectie"
+                className="inline-flex justify-center border border-white bg-white px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-black transition hover:bg-transparent hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              >
+                Vezi ceasul
+              </a>
+              <Link
+                href="#atelier"
+                className="hidden justify-center border border-white/40 px-8 sm:inline-flex py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-white transition hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              >
+                Constructia
+              </Link>
+            </div>
           </motion.div>
 
-          <motion.dl {...fade(0.85)} className="grid grid-cols-3 gap-8">
+          <motion.dl {...fade(0.85)} className="grid grid-cols-3 gap-6 lg:gap-10">
             {SPECS.map((s) => (
               <div key={s.label}>
                 <dt className="text-[10px] uppercase tracking-[0.25em] text-white/50">
@@ -108,10 +120,3 @@ export default function Hero() {
     </section>
   );
 }
-
-/**
- * NOTA DESPRE POZA: hero-ul asta traieste sau moare din poza.
- * Ce functioneaza: ceasul pe mana, in lumina dura laterala, fundal negru sau
- * interior de masina, ceasul ocupand jumatatea dreapta (textul sta stanga-jos).
- * Ce NU functioneaza: ceas pe fundal alb, poza de produs decupata, poza luminoasa.
- */
