@@ -9,7 +9,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { whatsappLink } from "@/lib/site";
+import { INSTAGRAM } from "@/lib/site";
+
 
 const PRODUCT = {
   name: "Nightfall Edition",
@@ -56,7 +57,7 @@ const DETAILS = [
     title: "Comandă și livrare",
     body: [
       // TODO: confirma termenul si metoda de plata
-      "Îmi scrii pe WhatsApp, stabilim mărimea brățării și îl trimit prin curier în 1–3 zile lucrătoare.",
+      "Îmi scrii pe Instagram, stabilim mărimea brățării și îl trimit prin curier în 1–3 zile lucrătoare.",
       "Plata se face la livrare.",
     ],
   },
@@ -67,14 +68,15 @@ const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 export default function Product() {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
-  const order = whatsappLink(`Salut! Vreau ceasul Off Hour ${PRODUCT.name}.`);
+  const order = INSTAGRAM;
+
 
   return (
     <section id="colectie" className="scroll-mt-20 bg-black py-20 lg:py-32">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-12 lg:gap-16 lg:px-8">
         {/* Galerie */}
         <div className="lg:col-span-7">
-          <div className="relative aspect-[4/5] overflow-hidden bg-zinc-950">
+          <div className="relative aspect-4/5 overflow-hidden bg-zinc-950">
             <AnimatePresence initial={false} mode="popLayout">
               <motion.div
                 key={active}
@@ -104,7 +106,7 @@ export default function Product() {
                 onClick={() => setActive(i)}
                 aria-label={p.alt}
                 aria-pressed={i === active}
-                className={`relative aspect-[4/5] overflow-hidden outline-none transition focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
+                className={`relative aspect-4/5 overflow-hidden outline-none transition focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
                   i === active ? "opacity-100 ring-1 ring-white" : "opacity-40 hover:opacity-80"
                 }`}
               >
@@ -132,16 +134,16 @@ export default function Product() {
               {PRODUCT.intro}
             </p>
 
-            <a
-              href={order}
+                        <a
+              href={INSTAGRAM}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 flex w-full justify-center border border-white bg-white px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-black transition hover:bg-transparent hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="mt-3 flex w-full justify-center border border-white/40 px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-white transition hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
-              Comandă pe WhatsApp
+              Comandă ceasul
             </a>
-            <p className="mt-3 text-center text-xs text-white/40">
-              Îți răspund personal și stabilim mărimea brățării.
+             <p className="mt-3 text-center text-xs text-white/50">
+              Plătești la livrare. Îl primești reglat pe încheietura ta.
             </p>
 
             <dl className="mt-10 divide-y divide-white/10 border-y border-white/10">

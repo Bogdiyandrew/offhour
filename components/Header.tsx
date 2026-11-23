@@ -4,16 +4,16 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { whatsappLink } from "@/lib/site";
+import { INSTAGRAM } from "@/lib/site";
+
 
 const NAV = [
-  { id: "colectie", label: "COLECTIE" },
+  { id: "colectie", label: "Nightfall" },
   { id: "atelier", label: "Original vs. custom" },
-  { id: "comanda", label: "Cum comanzi" },
   { id: "faq", label: "Întrebări" },
 ];
 
-const ORDER = whatsappLink("Salut! Vreau ceasul Off Hour Nightfall Edition.");
+const ORDER = INSTAGRAM;
 
 /** Ora vizitatorului, ca in fereastra LCD de pe cadranul GA-2100. */
 function LcdClock() {
@@ -177,10 +177,10 @@ export default function Header() {
               className="relative flex h-11 w-11 items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-white lg:hidden"
             >
               <span
-                className={`absolute h-px w-6 bg-white transition-transform duration-300 ${open ? "rotate-45" : "-translate-y-[4px]"}`}
+                className={`absolute h-px w-6 bg-white transition-transform duration-300 ${open ? "rotate-45" : "-translate-y-1"}`}
               />
               <span
-                className={`absolute h-px w-6 bg-white transition-transform duration-300 ${open ? "-rotate-45" : "translate-y-[4px]"}`}
+                className={`absolute h-px w-6 bg-white transition-transform duration-300 ${open ? "-rotate-45" : "translate-y-1"}`}
               />
             </button>
           </div>
@@ -234,7 +234,7 @@ export default function Header() {
                   onClick={() => setOpen(false)}
                   className="mt-auto flex justify-center border border-white bg-white px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-black"
                 >
-                  Comandă pe WhatsApp
+                  Comandă pe Instagram
                 </a>
               </motion.div>
             )}

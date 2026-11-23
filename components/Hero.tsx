@@ -8,30 +8,26 @@
  *      ... <body className={display.variable}> ...
  *    ("latin-ext" e necesar pentru ă, ț, ș)
  * 2. public/hero-watch.jpg = ceas-prezentare-v4.jpg
- * 3. Pune numarul tau in WHATSAPP (format international, fara + si spatii).
+ * 3. Linkul de Instagram se schimba in lib/site.ts.
  */
 
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-
-const WHATSAPP = "407XXXXXXXX"; // TODO
-const WHATSAPP_HREF = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(
-  "Salut! Vreau ceasul Off Hour All Black Frosted."
-)}`;
+import { INSTAGRAM } from "@/lib/site";
 
 const COPY = {
   eyebrow: "Custom G-Shock · Asamblat manual",
-  line1: "Ceasul pe care",
-  line2: "îl observă toți",
-  sub: "Un G-Shock original, îmbrăcat în carcasă de oțel cu finisaj frosted.",
+  line1: "Bază Casio.",
+  line2: "Oțel negru.",
+  sub: "Un G-Shock original, îmbrăcat în carcasă și brățară de oțel cu finisaj frosted. Fiecare ceas e montat de mână, o bucată pe rând.",
 };
 
 // Doar lucruri adevarate si verificabile.
 const SPECS = [
   { label: "Modul", value: "Casio GA-2100" },
-  { label: "Carcasă", value: "Oțel inoxidabil 316L" },
-  { label: "Finisaj", value: "Frosted" },
+  { label: "Carcasă", value: "Oțel inoxidabil" },
+  { label: "Finisaj", value: "Frosted Black" },
 ];
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -77,7 +73,7 @@ export default function Hero() {
           {COPY.eyebrow}
         </motion.p>
 
-        <h1 className="font-[family-name:var(--font-display)] text-[clamp(3.15rem,min(7.2vw,12.5vh),6.75rem)] font-bold uppercase leading-[0.91] tracking-tight text-white">
+        <h1 className="font-[family-name:var(--font-display)] text-[clamp(3.25rem,min(9.5vw,15vh),9rem)] font-bold uppercase leading-[0.9] tracking-tight text-white">
           <motion.span {...fade(0.35)} className="block whitespace-nowrap">
             {COPY.line1}
           </motion.span>
@@ -91,16 +87,18 @@ export default function Hero() {
             <p className="text-sm leading-relaxed text-white/70">{COPY.sub}</p>
             <div className="mt-6 grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
               <a
-                href="#colectie"
+                href={INSTAGRAM}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex justify-center border border-white bg-white px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-black transition hover:bg-transparent hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               >
-                Vezi ceasul
+                Comandă pe Instagram
               </a>
               <Link
-                href="#atelier"
+                href="#colectie"
                 className="hidden justify-center border border-white/40 px-8 sm:inline-flex py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-white transition hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               >
-                Constructia
+                Vezi ceasul
               </Link>
             </div>
           </motion.div>

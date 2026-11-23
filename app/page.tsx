@@ -2,7 +2,6 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Product from "@/components/Product";
 import Atelier from "@/components/Atelier";
-import HowToOrder from "@/components/HowToOrder";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 
@@ -14,7 +13,6 @@ export default function Home() {
         <Hero />
         <Product />
         <Atelier />
-        <HowToOrder />
         <Faq />
       </main>
       <Footer />

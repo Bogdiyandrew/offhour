@@ -1,35 +1,60 @@
 /**
  * Intrebari frecvente (#faq).
- * Raspunsuri scurte. Tot ce e TODO trebuie confirmat de tine.
+ * Fiecare raspuns trebuie sa spuna ceva concret: cifre, nume, pasi.
+ * Tot ce e marcat TODO e o promisiune: lasa-l doar daca il poti respecta.
  */
 
-const FAQ = [
+const FAQ: { q: string; a: string[] }[] = [
   {
-    q: "E un Casio original?",
-    a: "Da. Modulul, mecanismul și capacul din spate sunt Casio G-Shock GA-2100 originale, cu gravura la vedere. Carcasa, brățara și cadranul sunt montate de mine.",
+    q: "E un Casio adevărat?",
+    a: [
+      "Da. Pornesc de la un G-Shock GA-2100 nou, cu cutie și acte. Modulul (mecanismul, afișajul, toate funcțiile) și capacul din spate cu gravura Casio rămân originale.",
+      "Ce schimb eu: carcasa și brățara, înlocuite cu oțel inoxidabil și cadranul.",
+    ],
+  },
+  {
+    q: "Cât durează livrarea?",
+    a: [
+      "Livrez doar în România, prin SameDay. Îl trimit în 1–3 zile lucrătoare de la confirmarea comenzii și ajunge de obicei a doua zi după expediere.",
+      "Primești numărul AWB pe Instagram, ca să știi unde e coletul.",
+    ],
+  },
+  {
+    q: "Și dacă nu-mi place când îl primesc?",
+    a: [
+      // TODO: hotaraste politica de retur si scrie-o exact aici
+      "Dacă îl primești și nu e ce te așteptai, scrie-mi în 14 zile și stabilim returul. Ceasul trebuie să se întoarcă așa cum a plecat, cu cutia și tot ce era în ea.",
+    ],
+  },
+  
+  {
+    q: "Se potrivește pe încheietura mea?",
+    a: [
+      // TODO: completeaza circumferinta minima si maxima reala
+      "Brățara se scurtează scoțând zale. Când comanzi, îmi spui circumferința încheieturii (o măsori cu un fir de ață și o riglă) și îl trimit gata reglat.",
+      "În cutie ai și cheița, dacă vrei să-l ajustezi mai târziu.",
+    ],
   },
   {
     q: "Pot să înot cu el?",
-    a: "Nu. Rezistă la ploaie și stropi, dar carcasa se deschide la montaj, așa că nu garantez cei 20 BAR din fabrică.",
+    a: [
+      "Nu. Modulul are din fabrică 20 BAR, dar la montaj carcasa se deschide, așa că nu pot garanta etanșeitatea inițială.",
+      "Rezistă la ploaie, stropi și spălat pe mâini. Nu e pentru înot, duș sau scufundare.",
+    ],
   },
-  {
-    q: "Se potrivește pe încheietura mea?",
-    // TODO: completeaza circumferinta maxima reala a bratarii
-    a: "Brățara se scurtează scoțând zale. Îmi spui circumferința încheieturii când comanzi și îl trimit gata reglat.",
+   {
+    q: "Pot să-mi fac unul personalizat?",
+    a: [
+      // TODO: confirma ce poti schimba si in cat timp ajung piesele
+      "Da. Putem schimba cadranul, culoarea și finisajul carcasei sau brățara, în funcție de piesele pe care le pot aduce.",
+      "Scrie-mi pe Instagram la @offhour.ro ce ai în minte. Îți spun ce se poate, cât costă și în cât timp e gata, înainte să plătești ceva.",
+    ],
   },
-  {
-    q: "Pot să-l readuc la forma de fabrică?",
-    a: "Da. Primești carcasa și cureaua originale din rășină, iar modulul se mută înapoi.",
-  },
-  {
-    q: "Cum plătesc?",
-    // TODO: confirma metoda de plata
-    a: "La livrare, prin curier. Nu îți cer bani în avans.",
-  },
-  {
-    q: "Ce fac dacă apare o problemă?",
-    // TODO: hotaraste exact ce acoperi si scrie asta aici
-    a: "Îmi scrii pe WhatsApp. Dacă e o problemă de la montaj, o repar eu.",
+   {
+    q: "Oferi garanție?",
+    a: [
+      "Fiecare ceas pleacă cu garanție pe manoperă. Dacă ceva nu e în regulă cu montajul, scrie-mi și rezolv.",
+    ],
   },
 ];
 
@@ -53,7 +78,11 @@ export default function Faq() {
                   +
                 </span>
               </summary>
-              <p className="-mt-1 max-w-[60ch] pb-6 text-sm leading-relaxed text-white/60">{f.a}</p>
+              <div className="-mt-1 max-w-[62ch] space-y-3 pb-6 text-sm leading-relaxed text-white/60">
+                {f.a.map((p) => (
+                  <p key={p}>{p}</p>
+                ))}
+              </div>
             </details>
           ))}
         </div>

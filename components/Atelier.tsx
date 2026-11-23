@@ -38,7 +38,7 @@ export default function Atelier() {
           </p>
         </div>
 
-        <div className="relative mx-auto mt-14 aspect-[4/5] max-w-2xl select-none overflow-hidden bg-black lg:mt-20">
+        <div className="relative mx-auto mt-14 aspect-4/5 max-w-2xl select-none overflow-hidden bg-black lg:mt-20">
           {/* Dupa: dedesubt, ocupa tot */}
           <Image src={AFTER.src} alt={AFTER.alt} fill sizes="(min-width: 768px) 672px, 100vw" className="object-cover" />
 

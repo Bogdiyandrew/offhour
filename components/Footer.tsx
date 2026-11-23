@@ -1,11 +1,15 @@
 import Link from "next/link";
-import { INSTAGRAM, WHATSAPP, whatsappLink } from "@/lib/site";
+import { HANDLE, INSTAGRAM, TIKTOK } from "@/lib/site";
 
 const NAV = [
-  { href: "#colectie", label: "COLECTIE" },
+  { href: "#colectie", label: "Nightfall Edition" },
   { href: "#atelier", label: "Original vs. custom" },
-  { href: "#comanda", label: "Cum comanzi" },
   { href: "#faq", label: "Întrebări" },
+];
+
+const SOCIAL = [
+  { href: INSTAGRAM, label: "Instagram" },
+  { href: TIKTOK, label: "TikTok" },
 ];
 
 export default function Footer() {
@@ -29,28 +33,18 @@ export default function Footer() {
           </nav>
 
           <ul className="space-y-3 text-sm lg:col-span-4">
-            <li>
-              <a
-                href={whatsappLink("Salut! Am o întrebare despre Off Hour.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 transition hover:text-white focus-visible:text-white focus-visible:underline"
-              >
-                WhatsApp · +{WHATSAPP}
-              </a>
-            </li>
-            {INSTAGRAM && (
-              <li>
+            {SOCIAL.map((s) => (
+              <li key={s.label}>
                 <a
-                  href={INSTAGRAM}
+                  href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/60 transition hover:text-white focus-visible:text-white focus-visible:underline"
                 >
-                  Instagram
+                  {s.label} · {HANDLE}
                 </a>
               </li>
-            )}
+            ))}
           </ul>
 
           <p className="max-w-[46ch] text-xs leading-relaxed text-white/40 sm:col-span-2 lg:col-span-4">
