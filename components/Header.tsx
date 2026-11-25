@@ -2,47 +2,26 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import Link from "next/link";
+import ScrollLink from "@/components/ScrollLink";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { INSTAGRAM } from "@/lib/site";
+import Logo from "@/components/Logo";
 
-
-const NAV = [
-  { id: "colectie", label: "Nightfall" },
+// Pe desktop: LEFT in stanga logo-ului, RIGHT in dreapta. Pe mobil apar toate in meniu.
+// "despre" e sectiunea "Despre noi", pe care o facem mai tarziu.
+// Pana exista un element cu id="despre", linkul nu face nimic.
+const LEFT = [
+  { id: "colectie", label: "Ceasul" },
+  { id: "despre", label: "Despre noi" },
+  { id: "contact", label: "Contact" },
+];
+const RIGHT = [
   { id: "atelier", label: "Original vs. custom" },
   { id: "faq", label: "Întrebări" },
 ];
+const NAV = [...LEFT, ...RIGHT];
 
 const ORDER = INSTAGRAM;
-
-/** Ora vizitatorului, ca in fereastra LCD de pe cadranul GA-2100. */
-function LcdClock() {
-  const [now, setNow] = useState<Date | null>(null);
-  useEffect(() => {
-    setNow(new Date());
-    const id = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  const hh = now ? String(now.getHours()).padStart(2, "0") : "--";
-  const mm = now ? String(now.getMinutes()).padStart(2, "0") : "--";
-  const blink = now ? now.getSeconds() % 2 === 0 : true;
-
-  return (
-    <span
-      className="hidden items-center border border-[#5C6B8A]/50 bg-[#0B0E14] px-2 py-1 font-mono text-[13px] leading-none tracking-wider text-[#A9BAD8] [font-variant-numeric:tabular-nums] sm:inline-flex"
-      aria-hidden
-    >
-      {hh}
-      <span
-        className={`motion-safe:transition-opacity ${blink ? "opacity-100" : "opacity-20"}`}
-      >
-        :
-      </span>
-      {mm}
-    </span>
-  );
-}
 
 export default function Header() {
   const reduce = useReducedMotion();
@@ -55,6 +34,8 @@ export default function Header() {
 
   // Fundal dupa ce incepi sa derulezi; ascuns cand cobori, inapoi cand urci.
   useEffect(() => {
+    // "last" se muta doar dupa o miscare clara, ca pasii mici (trackpad, telefon)
+    // sa nu schimbe directia la fiecare pixel.
     let last = window.scrollY;
     const onScroll = () => {
       const y = window.scrollY;
@@ -108,62 +89,51 @@ export default function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 w-full transition-[translate,background-color,border-color] duration-500 ${
+        className={`fixed inset-x-0 top-0 z-50 w-full transition-[translate,background-color,border-color] duration-500 ${
           hidden && !open ? "-translate-y-full" : "translate-y-0"
-        } ${solid ? "border-b border-white/10 bg-black/80 backdrop-blur-md" : "border-b border-transparent bg-black"}`}
+        } ${
+          solid
+            ? "border-b border-white/10 bg-black/75 backdrop-blur-md"
+            : "border-b border-transparent bg-transparent"
+        }`}
       >
-        <div className="relative z-10 mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-6 lg:px-8">
-          <Link
-            href="#top"
-            onClick={() => setOpen(false)}
-            className="flex items-center gap-3 outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black"
-            aria-label="Off Hour, înapoi sus"
-          >
-            <span className="font-[family-name:var(--font-display)] text-[1.75rem] font-bold uppercase leading-none tracking-tight text-white">
-              Off Hour
-            </span>
-            <LcdClock />
-          </Link>
-
-          <nav aria-label="Principal" className="hidden lg:block">
-            <ul className="flex items-center gap-1">
-              {NAV.map((n) => {
-                const isActive = active === n.id;
-                return (
-                  <li key={n.id} className="relative">
-                    <Link
-                      href={`#${n.id}`}
-                      aria-current={isActive ? "true" : undefined}
-                      className={`block px-4 py-2 text-sm outline-none transition-colors focus-visible:text-white focus-visible:underline ${
-                        isActive
-                          ? "text-white"
-                          : "text-white/55 hover:text-white"
-                      }`}
-                    >
-                      {n.label}
-                    </Link>
-                    {isActive && (
-                      <motion.span
-                        layoutId="nav-active"
-                        className="absolute inset-x-4 -bottom-0.5 h-px bg-white"
-                        transition={{
-                          duration: reduce ? 0 : 0.35,
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
-                      />
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
+        {/* Sus de tot headerul e transparent: o umbra fina de sus pastreaza meniul lizibil peste poza */}
+        <div
+          aria-hidden
+          className={`pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/70 to-transparent transition-opacity duration-500 ${solid ? "opacity-0" : "opacity-100"}`}
+        />
+        <div className="relative z-10 mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:px-8">
+          {/* Stanga: linkuri pe desktop, nimic pe mobil */}
+          <nav aria-label="Principal stânga" className="hidden lg:block">
+            <NavList items={LEFT} active={active} reduce={reduce} />
           </nav>
 
-          <div className="flex items-center gap-3">
+          {/* Centru: logo + nume */}
+          <ScrollLink
+            to="top"
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-3 justify-self-center outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black"
+            aria-label="Off Hour, înapoi sus"
+          >
+            <Logo className="h-7 w-auto text-white" />
+            <span
+              aria-hidden
+              className="whitespace-nowrap font-[family-name:var(--font-display)] text-[1.75rem] font-bold uppercase leading-none tracking-tight text-white"
+            >
+              Off Hour
+            </span>
+          </ScrollLink>
+
+          {/* Dreapta: linkuri + Comandă pe desktop, meniul pe mobil */}
+          <div className="flex items-center justify-end gap-3">
+            <nav aria-label="Principal dreapta" className="hidden lg:block">
+              <NavList items={RIGHT} active={active} reduce={reduce} />
+            </nav>
             <a
               href={ORDER}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden border border-white bg-white px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-black transition hover:bg-transparent hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:inline-flex"
+              className="hidden border border-white/30 px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:inline-flex lg:ml-3"
             >
               Comandă
             </a>
@@ -177,10 +147,10 @@ export default function Header() {
               className="relative flex h-11 w-11 items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-white lg:hidden"
             >
               <span
-                className={`absolute h-px w-6 bg-white transition-transform duration-300 ${open ? "rotate-45" : "-translate-y-1"}`}
+                className={`absolute h-px w-6 bg-white transition-transform duration-300 ${open ? "rotate-45" : "-translate-y-[4px]"}`}
               />
               <span
-                className={`absolute h-px w-6 bg-white transition-transform duration-300 ${open ? "-rotate-45" : "translate-y-1"}`}
+                className={`absolute h-px w-6 bg-white transition-transform duration-300 ${open ? "-rotate-45" : "translate-y-[4px]"}`}
               />
             </button>
           </div>
@@ -213,15 +183,15 @@ export default function Header() {
                           ease: [0.22, 1, 0.36, 1],
                         }}
                       >
-                        <Link
-                          href={`#${n.id}`}
+                        <ScrollLink
+                          to={n.id}
                           onClick={() => setOpen(false)}
                           className={`block py-4 font-[family-name:var(--font-display)] text-[2.75rem] font-bold uppercase leading-none tracking-tight outline-none focus-visible:underline ${
                             active === n.id ? "text-white" : "text-white/45"
                           }`}
                         >
                           {n.label}
-                        </Link>
+                        </ScrollLink>
                       </motion.li>
                     ))}
                   </ul>
@@ -242,5 +212,44 @@ export default function Header() {
           document.body,
         )}
     </>
+  );
+}
+
+/** Lista de linkuri de pe desktop, cu linia sodium sub sectiunea activa. */
+function NavList({
+  items,
+  active,
+  reduce,
+}: {
+  items: { id: string; label: string }[];
+  active: string | null;
+  reduce: boolean | null;
+}) {
+  return (
+    <ul className="flex items-center gap-1">
+      {items.map((n) => {
+        const isActive = active === n.id;
+        return (
+          <li key={n.id} className="relative">
+            <ScrollLink
+              to={n.id}
+              aria-current={isActive ? "true" : undefined}
+              className={`block whitespace-nowrap px-4 py-2 text-sm outline-none transition-colors focus-visible:text-white focus-visible:underline ${
+                isActive ? "text-white" : "text-white/80 hover:text-white"
+              }`}
+            >
+              {n.label}
+            </ScrollLink>
+            {isActive && (
+              <motion.span
+                layoutId="nav-active"
+                className="absolute inset-x-4 -bottom-0.5 h-0.5 bg-sodium"
+                transition={{ duration: reduce ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
+              />
+            )}
+          </li>
+        );
+      })}
+    </ul>
   );
 }

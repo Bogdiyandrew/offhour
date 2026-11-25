@@ -42,8 +42,6 @@ const DETAILS = [
     body: [
       "Ceasul Nightfall Edition, asamblat și reglat pe mărimea ta.",
       "Cutia originală Casio G-Shock, cardurile de garanție și manualul.",
-      "Carcasa și cureaua originale din rășină. Poți readuce oricând ceasul la forma de fabrică.",
-      "Cheiță pentru ajustarea brățării.",
     ],
   },
   {
@@ -72,7 +70,14 @@ export default function Product() {
 
 
   return (
-    <section id="colectie" className="scroll-mt-20 bg-black py-20 lg:py-32">
+        <section id="colectie" className="relative isolate scroll-mt-20 overflow-hidden bg-black py-20 lg:py-32">
+      {/* Fundal: lumina calda de felinar in spatele coloanei cu pretul + grain de film.
+          Static, ca sa nu concureze cu video-ul. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_60%_at_78%_22%,rgba(255,178,36,0.11),transparent_70%)] max-lg:bg-[radial-gradient(ellipse_90%_45%_at_50%_62%,rgba(255,178,36,0.09),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_70%_at_20%_45%,rgba(120,140,170,0.06),transparent_70%)]" />
+        <div className="absolute inset-0 opacity-[0.09] mix-blend-overlay [background-image:url(/grain.svg)] [background-size:180px]" />
+      </div>
       <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-12 lg:gap-16 lg:px-8">
         {/* Galerie */}
         <div className="lg:col-span-7">
@@ -124,21 +129,23 @@ export default function Product() {
             </h2>
 
             <div className="mt-6 flex items-baseline justify-between gap-4 border-b border-white/15 pb-6">
-              <p className="font-[family-name:var(--font-display)] text-3xl font-semibold text-white">
+                <p className="font-[family-name:var(--font-display)] text-4xl font-semibold text-sodium">
                 {PRODUCT.price}
               </p>
-              <p className="text-xs text-white/50">{PRODUCT.stock}</p>
+               <p className="inline-flex items-center gap-2.5 border border-sodium/40 bg-sodium/10 px-3.5 py-2 text-[13px] font-medium text-white">
+                {PRODUCT.stock}
+              </p>
             </div>
 
             <p className="mt-6 max-w-[52ch] text-sm leading-relaxed text-white/70">
               {PRODUCT.intro}
             </p>
 
-                        <a
-              href={INSTAGRAM}
+             <a
+              href={order}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 flex w-full justify-center border border-white/40 px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-white transition hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="mt-8 flex w-full justify-center bg-white px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-black outline-offset-4 outline-sodium/70 shadow-[0_0_32px_-6px_rgba(255,178,36,0.45)] transition duration-300 hover:bg-sodium hover:outline-sodium hover:shadow-[0_0_24px_-6px_rgba(255,178,36,0.35)]  focus-visible:outline-2 focus-visible:outline-sodium"
             >
               Comandă ceasul
             </a>

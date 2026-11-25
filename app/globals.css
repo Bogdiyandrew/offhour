@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Paleta Off Hour, regula 60-30-10.
+ *  60% negru otel   -> fundaluri
+ *  30% alb mat      -> text, titluri, butoane
+ *  10% sodium       -> doar pret, stoc, linkul activ, manerul slider-ului
+ *
+ * Redefinim white / black / zinc, asa ca toate clasele existente
+ * (bg-black, text-white, border-white/10, bg-zinc-950...) iau automat
+ * noile culori. Pentru cod nou, foloseste numele clare: steel, frost, sodium.
+ */
+@theme {
+  --color-steel: #0e1013;
+  --color-steel-2: #15171b;
+  --color-frost: #e4e6e9;
+  --color-mist: #8b9097;
+  --color-sodium: #ffb224;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-black: var(--color-steel);
+  --color-white: var(--color-frost);
+  --color-zinc-950: var(--color-steel-2);
+  --color-zinc-100: var(--color-frost);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-steel);
+  color: var(--color-frost);
+}
+
+::selection {
+  background: var(--color-sodium);
+  color: var(--color-steel);
+}
+
+/* Fara scroll orizontal pe telefon. "clip" (nu "hidden") ca sa nu strice headerul sticky. */
+html,
+body {
+  overflow-x: clip;
 }

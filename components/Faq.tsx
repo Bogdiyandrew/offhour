@@ -73,7 +73,7 @@ export default function Faq() {
                 {f.q}
                 <span
                   aria-hidden
-                  className="shrink-0 text-2xl font-light leading-none text-white/50 transition-transform group-open:rotate-45"
+                  className="shrink-0 text-2xl font-light leading-none text-white/50 transition group-open:rotate-45 group-open:text-sodium"
                 >
                   +
                 </span>

@@ -1,10 +1,10 @@
-import Link from "next/link";
+import ScrollLink from "@/components/ScrollLink";
 import { HANDLE, INSTAGRAM, TIKTOK } from "@/lib/site";
 
 const NAV = [
-  { href: "#colectie", label: "Nightfall Edition" },
-  { href: "#atelier", label: "Original vs. custom" },
-  { href: "#faq", label: "Întrebări" },
+  { id: "colectie", label: "Nightfall Edition" },
+  { id: "atelier", label: "Original vs. custom" },
+  { id: "faq", label: "Întrebări" },
 ];
 
 const SOCIAL = [
@@ -20,13 +20,13 @@ export default function Footer() {
           <nav aria-label="Secțiuni" className="lg:col-span-4">
             <ul className="space-y-3 text-sm">
               {NAV.map((n) => (
-                <li key={n.href}>
-                  <Link
-                    href={n.href}
+                <li key={n.id}>
+                  <ScrollLink
+                    to={n.id}
                     className="text-white/60 transition hover:text-white focus-visible:text-white focus-visible:underline"
                   >
                     {n.label}
-                  </Link>
+                  </ScrollLink>
                 </li>
               ))}
             </ul>
@@ -56,12 +56,12 @@ export default function Footer() {
 
         <div className="mt-16 flex items-center justify-between border-t border-white/10 py-6 text-xs text-white/40">
           <span>© 2026 Off Hour</span>
-          <a
-            href="#top"
+          <ScrollLink
+            to="top"
             className="transition hover:text-white focus-visible:text-white focus-visible:underline"
           >
             Sus
-          </a>
+          </ScrollLink>
         </div>
       </div>
 
