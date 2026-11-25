@@ -48,7 +48,7 @@ export default function Atelier() {
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_45%_60%_at_30%_55%,rgba(150,170,200,0.09),transparent_70%)] max-lg:bg-[radial-gradient(ellipse_90%_40%_at_50%_45%,rgba(150,170,200,0.08),transparent_70%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_35%_40%_at_85%_85%,rgba(255,178,36,0.07),transparent_70%)]" />
-        <div className="absolute inset-0 opacity-[0.09] mix-blend-overlay [background-image:url(/grain.svg)] [background-size:180px]" />
+        <div className="absolute inset-0 opacity-[0.18] mix-blend-screen [background-image:url(/grain.svg)] [background-size:180px]" />
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-12 lg:gap-16 lg:px-8">

@@ -54,14 +54,8 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="mt-16 flex items-center justify-between border-t border-white/10 py-6 text-xs text-white/40">
+        <div className="mt-10 flex items-center justify-between border-t border-white/10 py-6 text-xs text-white/40">
           <span>© 2026 Off Hour</span>
-          <ScrollLink
-            to="top"
-            className="transition hover:text-white focus-visible:text-white focus-visible:underline"
-          >
-            Sus
-          </ScrollLink>
         </div>
       </div>
 

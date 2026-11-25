@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
@@ -30,11 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ro" className="dark scroll-smooth">
+        <html lang="ro" className="dark">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} ${display.variable} font-sans bg-zinc-950 text-zinc-100 antialiased selection:bg-white selection:text-black`}
+        className={`${inter.variable} ${spaceGrotesk.variable} ${display.variable} font-sans bg-zinc-950 text-zinc-100 antialiased`}
       >
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

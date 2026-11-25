@@ -6,12 +6,13 @@ import ScrollLink from "@/components/ScrollLink";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { INSTAGRAM } from "@/lib/site";
 import Logo from "@/components/Logo";
+import { useLenis } from "lenis/react";
 
 // Pe desktop: LEFT in stanga logo-ului, RIGHT in dreapta. Pe mobil apar toate in meniu.
 // "despre" e sectiunea "Despre noi", pe care o facem mai tarziu.
 // Pana exista un element cu id="despre", linkul nu face nimic.
 const LEFT = [
-  { id: "colectie", label: "Ceasul" },
+  { id: "colectie", label: "Colectie" },
   { id: "despre", label: "Despre noi" },
   { id: "contact", label: "Contact" },
 ];
@@ -30,6 +31,7 @@ export default function Header() {
   const [active, setActive] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+   const lenis = useLenis();
   useEffect(() => setMounted(true), []);
 
   // Fundal dupa ce incepi sa derulezi; ascuns cand cobori, inapoi cand urci.
@@ -73,16 +75,18 @@ export default function Header() {
   }, []);
 
   // Meniul de pe mobil: blocheaza derularea si se inchide cu Escape.
-  useEffect(() => {
+    useEffect(() => {
     if (!open) return;
     document.body.style.overflow = "hidden";
+    lenis?.stop();
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
+      lenis?.start();
       window.removeEventListener("keydown", onKey);
     };
-  }, [open]);
+  }, [open, lenis]);
 
   const solid = scrolled || open;
 

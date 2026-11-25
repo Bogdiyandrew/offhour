@@ -56,7 +56,6 @@ const DETAILS = [
     body: [
       // TODO: confirma termenul si metoda de plata
       "Îmi scrii pe Instagram, stabilim mărimea brățării și îl trimit prin curier în 1–3 zile lucrătoare.",
-      "Plata se face la livrare.",
     ],
   },
 ];
@@ -128,11 +127,11 @@ export default function Product() {
               {PRODUCT.name}
             </h2>
 
-            <div className="mt-6 flex items-baseline justify-between gap-4 border-b border-white/15 pb-6">
-                <p className="font-[family-name:var(--font-display)] text-4xl font-semibold text-sodium">
+            <div className="mt-6 flex flex-col items-start gap-3 border-b border-white/15 pb-6">
+              <p className="font-[family-name:var(--font-display)] text-4xl font-semibold text-sodium">
                 {PRODUCT.price}
               </p>
-               <p className="inline-flex items-center gap-2.5 border border-sodium/40 bg-sodium/10 px-3.5 py-2 text-[13px] font-medium text-white">
+              <p className="inline-flex items-center gap-2.5 border border-sodium/40 bg-sodium/10 px-3.5 py-2 text-[13px] font-medium text-white">
                 {PRODUCT.stock}
               </p>
             </div>
@@ -149,11 +148,8 @@ export default function Product() {
             >
               Comandă ceasul
             </a>
-             <p className="mt-3 text-center text-xs text-white/50">
-              Plătești la livrare. Îl primești reglat pe încheietura ta.
-            </p>
-
-            <dl className="mt-10 divide-y divide-white/10 border-y border-white/10">
+          
+            <dl className="mt-5 divide-y divide-white/10 border-y border-white/10">
               {SPECS.map((s) => (
                 <div key={s.label} className="grid grid-cols-[9rem_1fr] gap-4 py-3 text-sm">
                   <dt className="text-white/50">{s.label}</dt>
@@ -184,8 +180,7 @@ export default function Product() {
             </div>
 
             <p className="mt-6 text-xs leading-relaxed text-white/35">
-              Modul Casio original, cu carcasă, brățară și cadran aftermarket, asamblat de Off
-              Hour. Off Hour nu este afiliat și nu este aprobat de Casio.
+               Off Hour nu este afiliat și nu este aprobat de Casio.
             </p>
           </div>
         </div>
